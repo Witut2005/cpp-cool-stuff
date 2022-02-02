@@ -6,69 +6,131 @@
 
     
 
-linked_list::linked_list()
+linked_list::linked_list(uint32_t value)
 {
-    node = (node_t*)malloc(sizeof(node_t));
-    node->value = 0;
-    elements_counter = 0x0;
-    elements_counter++;
+
+    entry.reserve(10);
+
+
+    entry.push_back(new node_t);
+
+    head = entry[0];
+
+    head->next = nullptr;
+    head->value = value;
+
+    elements_counter = 0x1;  
+
 }
 
 node_t* linked_list::insert(uint32_t where, uint32_t value)
 {
 
-   
-    if(!where)
-    {
-
-        node[]
-
-    }
-
-    node = (node_t*)realloc(node, sizeof(node_t) * (elements_counter + 1));
-    
     elements_counter++;
 
-    node[where].value = value;
+    //entry.push_back(nullptr);// = (node_t*)realloc(node, sizeof(node_t) * (elements_counter));
+    
+    entry[where]->value = value;
 
-    node[where].next = &node[elements_counter];
+    entry[where]->next = entry[where + 1];
 
-    return &node[elements_counter];
+    return entry[elements_counter];
         
 }
 
-node_t* linked_list::push_back(uint32_t value)
+void linked_list::push_back(uint32_t value)
 {
 
-    node = (node_t*)realloc(node, sizeof(node_t) * (elements_counter + 1));
+    node_t* tmp = new node_t;
+
+    entry[elements_counter - 1]->next = tmp;
+
+    tmp->value = value;
+    tmp->next = nullptr;
+
+    entry.push_back(tmp);
+
     elements_counter++;
-
-
-    node[elements_counter].value = value;
-
-    return node;
 
 }
 
 uint32_t linked_list::get_node_value(uint32_t index)
 {
-    return node[index].value;
+    return entry[index]->value;
 }
 
 void linked_list::set_node_value(uint32_t index, uint32_t value)
 {
-    node[index].value = value;
+    entry[index]->value = value;
 }
 
 
 node_t* linked_list::get_head_address(void)
 {
-    return &node[0];
+    return entry[0];
 }
 
 uint32_t linked_list::get_last_value(void)
 {
-    return node[elements_counter].value;
+    return entry[elements_counter]->value;
 }
 
 
+uint32_t linked_list::size(void)
+{
+    return elements_counter;
+}
+
+void linked_list::set_head(uint32_t value)
+{
+    entry[0]->value = value;
+}
+
+
+void linked_list::insert_at_head(uint32_t value)
+{
+    node_t* tmp = new node_t;
+    
+    node_t* head_tmp = head;
+
+    head = tmp;
+    head->value = value;
+
+
+
+    head->next = head_tmp;
+
+
+
+}
+
+void linked_list::push_front(uint32_t value)
+{
+    node_t* tmp = new node_t;
+    
+    node_t* head_tmp = head;
+
+    head = tmp;
+    head->value = value;
+
+
+
+    head->next = head_tmp;
+
+
+
+}
+
+void linked_list::print_list(void)
+{
+    node_t* i;
+
+
+
+
+    for(i = head; i->next != nullptr; i = i->next)
+        printf("%d ", i->value);
+
+    printf("%d\n",i->value);
+
+}
