@@ -7,25 +7,25 @@
 using namespace std;
 
 
-template <typename G> std::string type_name();
-
-
-
 template<class T>
 vector<T>::vector()
 {
-
-    vector_size = 0x0;
-
-    int haha;
-
-    std::cout << type_name<decltype(haha)>() << '\n';
+    vector_element = new uint64_t;
+    vector_size = 0x1;
+    *vector_element = 0x20;
 }
 
 template<class T>
-void vector<T>::operator[](uint32_t value)
+T& vector<T>::operator[](uint32_t value)
 {
-    //printf("%d",vector_element[value]);
+    return vector_element[value];
+}
+
+
+template<class T>
+void vector<T>::operator=(T param)
+{
+    vector_element[0] = param;
 }
 
 
@@ -38,13 +38,21 @@ void vector<T>::push_back(T value)
 template<class T>
 void vector<T>::reserve(uint32_t value)
 {
-    printf("%d",value);
+    vector_element = (T*)realloc(vector_element, sizeof(T) * value);
+    vector_size = value;
 }
 
+template<class T>
+void vector<T>::push_back(T value)
+{
+
+    
+
+}
 
 template<class T>
-uint32_t vector<T>::capacity()
+uint32_t vector<T>::capacity(void)
 {
-    return sizeof(T);
+    return vector_size;
 }
 
