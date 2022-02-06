@@ -2,6 +2,12 @@
 #include <stdio.h>
 
 
+template<class T>
+struct vector_entry
+{
+    T value;
+    bool is_used;
+};
 
 
 template<class T>
@@ -14,12 +20,19 @@ class vector
 
     public:
         uint32_t vector_size;  
-        T* vector_element;
+        uint32_t vector_allocated_memory;
+
+        vector_entry<T>* vector_element;
+        vector_entry<T>* vector_last_element;
+        vector_entry<T>* end;
+        
+
         vector();
         void push_back(T value);   
+        void pop_back(void);
         uint32_t capacity(void); 
         void reserve(uint32_t value);
-        void push_back(T value);
+        uint32_t size(void);
         T& operator[](uint32_t value);
         void operator=(T param);
 

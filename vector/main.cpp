@@ -12,19 +12,18 @@ int main(void)
     lol.reserve(10);
     lol2.reserve(10);
 
-    lol[1] = 0x10;
+    lol.push_back(0x10);
+    lol.push_back(0x20);
 
-    for(int i = 0; i < 10; i++)
-    {
-        lol[i] = i * 10;
-    }
+    lol[1] = 0x30;
+    
+    lol.pop_back();
 
-    for(int i = 0; i < 10; i++)
-    {
-        std::cout << lol[i] << std::endl;
-    }
+    printf("vector size: %d\n", lol.size());
 
-    std::cout << "yout vector capacity:" << std::endl;
+
+
+    std::cout << "\nyout vector capacity:" << std::endl;
     std::cout << lol.capacity() << std::endl;
 
     return 0;
