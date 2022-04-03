@@ -1,30 +1,23 @@
 
+
+#include <iostream>
 #include "./vector.cpp"
 
 
 int main(void)
 {
 
-    vector<uint64_t> lol;
-    vector<uint64_t> lol2;
 
-   
-    lol.reserve(10);
-    lol2.reserve(10);
+    vector<double> lol2;
 
-    lol.push_back(0x10);
-    lol.push_back(0x20);
-
-    lol[1] = 0x30;
-    
-    lol.pop_back();
-
-    printf("vector size: %d\n", lol.size());
+    for(int h = 0; h < 10; h++)
+        lol2.push_back(h);
 
 
+    lol2.pop_back();
 
-    std::cout << "\nyout vector capacity:" << std::endl;
-    std::cout << lol.capacity() << std::endl;
+    for(int i = 0; i < lol2.size(); i++)
+        std::cout << lol2[i] << std::endl;
 
     return 0;
 

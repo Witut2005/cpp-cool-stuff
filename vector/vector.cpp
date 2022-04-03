@@ -18,10 +18,11 @@ vector<T>::vector()
 template<class T>
 T& vector<T>::operator[](uint32_t index)
 {
-    if(!vector_element[index].is_used)
-        vector_element[index].value = 0x0;
-        
-        return vector_element[index].value;
+    if(vector_element[index].is_used == false)
+    {
+        vector_element[index].value = 0;
+    }
+    return this->vector_element[index].value;
 }
 
 
@@ -32,22 +33,38 @@ void vector<T>::operator=(T param)
 }
 
 template<class T>
+bool vector<T>::operator==(vector<T> param) 
+{
+    for(int i = 0; i < this->size(); i++)
+        if(vector_element[i].value != param[i])
+        {
+            cout << "1. " << vector_element[i].value << endl;
+            cout << "2. " << param[i] << endl;
+            return false;
+        }
+            
+
+    return true;
+}
+
+template<class T>
 void vector<T>::reserve(uint32_t value)
 {
-    vector_element = (vector_entry<T>*)realloc(vector_element, sizeof(T) * value);
+    vector_element = (vector_entry<T>*)realloc(vector_element, sizeof(vector_entry<T>) * value);
     vector_allocated_memory = value;
 }
 
 template<class T>
 void vector<T>::push_back(T value)
 {
-    vector_element[vector_size].value = value;   
-    vector_element[vector_size].is_used = true;
 
-    printf("%d\n", vector_element[vector_size].value);
+    this->vector_element[vector_size].is_used = true;
+    this->vector_element[vector_size].value = value;   
 
-    vector_last_element++;
-    vector_size++;
+    //printf("%ld\n", vector_element[vector_size].value);
+
+    this->vector_last_element++;
+    this->vector_size++;
 
 }
 

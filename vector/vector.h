@@ -35,7 +35,7 @@ class vector
         uint32_t size(void);
         T& operator[](uint32_t value);
         void operator=(T param);
-
+        bool operator==(vector<T> param);
 
 
 
