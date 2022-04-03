@@ -24,12 +24,13 @@ class vector
 
         vector_entry<T>* vector_element;
         vector_entry<T>* vector_last_element;
-        vector_entry<T>* end;
         
 
         vector();
         void push_back(T value);   
         void pop_back(void);
+        vector_entry<T>* begin(void);
+        vector_entry<T>* end(void);
         uint32_t capacity(void); 
         void reserve(uint32_t value);
         uint32_t size(void);

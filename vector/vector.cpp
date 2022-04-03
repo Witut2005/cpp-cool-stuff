@@ -11,7 +11,8 @@ template<class T>
 vector<T>::vector()
 {
     vector_element = new vector_entry<T>;
-    vector_size = 0x0; 
+    vector_size = 0; 
+    vector_allocated_memory = 0;
     //vector_last_element = vector_element;
 }
 
@@ -19,9 +20,8 @@ template<class T>
 T& vector<T>::operator[](uint32_t index)
 {
     if(vector_element[index].is_used == false)
-    {
-        vector_element[index].value = 0;
-    }
+        vector_element[index].value = 0;    
+
     return this->vector_element[index].value;
 }
 
@@ -47,6 +47,20 @@ bool vector<T>::operator==(vector<T> param)
     return true;
 }
 
+
+template<class T>
+vector_entry<T>* vector<T>::begin(void)
+{
+    return this->vector_element;
+}
+
+template<class T>
+vector_entry<T>* vector<T>::end(void)
+{
+    return &this->vector_element[vector_size];
+}
+
+
 template<class T>
 void vector<T>::reserve(uint32_t value)
 {
@@ -57,6 +71,12 @@ void vector<T>::reserve(uint32_t value)
 template<class T>
 void vector<T>::push_back(T value)
 {
+
+    if(vector_allocated_memory <= vector_size)
+    {
+        vector_allocated_memory++;
+        vector_element = (vector_entry<T>*)realloc(vector_element, sizeof(vector_entry<T>) * vector_allocated_memory);
+    }
 
     this->vector_element[vector_size].is_used = true;
     this->vector_element[vector_size].value = value;   
